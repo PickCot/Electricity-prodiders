@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const EditProvider = ({ updatePost, setReload, reload }) => {
     const { id } = useParams();
@@ -16,6 +17,7 @@ const EditProvider = ({ updatePost, setReload, reload }) => {
                 setIsLoading(false);
             } catch (error) {
                 console.error('Error fetching provider:', error);
+                toast.error('Error fetching provider data');
             }
         };
         fetchProvider();
@@ -30,6 +32,7 @@ const EditProvider = ({ updatePost, setReload, reload }) => {
         e.preventDefault();
         try {
             await updatePost(provider);
+            toast.success('Provider updated successfully');
             setReload(!reload); // Toggle reload state to re-fetch data
             navigate('/');
         } catch (error) {

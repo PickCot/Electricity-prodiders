@@ -1,6 +1,8 @@
 import { DataGrid } from '@mui/x-data-grid';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function DataTable({ rows, deletePost, updatePost }) {
     const navigate = useNavigate();
@@ -17,9 +19,9 @@ export default function DataTable({ rows, deletePost, updatePost }) {
             headerName: 'Actions',
             width: 150,
             renderCell: (params) => (
-                <div>
-                    <button onClick={() => navigate(`/edit/${params.row.id}`)}>Edit</button>
-                    <button onClick={() => deletePost(params.row.id)}>Delete</button>
+                <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                    <EditIcon onClick={() => navigate(`/edit/${params.row.id}`)} style={{ cursor: 'pointer' }} />
+                    <DeleteIcon onClick={() => deletePost(params.row.id)} style={{ cursor: 'pointer' }} />
                 </div>
             ),
         },
@@ -31,7 +33,6 @@ export default function DataTable({ rows, deletePost, updatePost }) {
                 rows={rows}
                 columns={columns}
                 pageSize={5}
-                // checkboxSelection
                 getRowId={(row) => row.id}
             />
         </div>

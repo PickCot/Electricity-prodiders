@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const AddProvider = ({ addPost }) => {
     const navigate = useNavigate();
@@ -21,8 +22,13 @@ const AddProvider = ({ addPost }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await addPost(newProvider);
-        navigate('/'); // Navigate back to the main page or another desired route
+        try {
+            await addPost(newProvider);
+            toast.success('Provider added successfully');
+            navigate('/');
+        } catch (error) {
+            toast.error('Failed to add provider');
+        }
     };
 
     return (

@@ -1,57 +1,78 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
-const AddProvider = ({ addPost }) => {
-    const navigate = useNavigate();
-    const [newProvider, setNewProvider] = useState({
-        name: '',
-        country: '',
-        market_share: '',
-        renewable_energy_percentage: '',
-        yearly_revenue: ''
-    });
+export default function AddPost(props) {
+    const [name, setName] = useState('');
+    const [country, setCountry] = useState('');
+    const [marketShare, setMarketShare] = useState('');
+    const [renewableEnergyPercentage, setRenewableEnergyPercentage] = useState('');
+    const [yearlyRevenue, setYearlyRevenue] = useState('');
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setNewProvider((prevProvider) => ({
-            ...prevProvider,
-            [name]: value,
-        }));
-    };
-
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        await addPost(newProvider);
-        navigate('/'); // Navigate back to the main page or another desired route
+        const newProvider = {
+            name,
+            country,
+            market_share: parseFloat(marketShare),
+            renewable_energy_percentage: parseFloat(renewableEnergyPercentage),
+            yearly_revenue: parseFloat(yearlyRevenue),
+        };
+        props.addPost(newProvider);
+        setName('');
+        setCountry('');
+        setMarketShare('');
+        setRenewableEnergyPercentage('');
+        setYearlyRevenue('');
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Name:</label>
-                    <input type="text" name="name" value={newProvider.name} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>Country:</label>
-                    <input type="text" name="country" value={newProvider.country} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>Market Share:</label>
-                    <input type="number" name="market_share" value={newProvider.market_share} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>Renewable Energy %:</label>
-                    <input type="number" name="renewable_energy_percentage" value={newProvider.renewable_energy_percentage} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>Yearly Revenue:</label>
-                    <input type="number" name="yearly_revenue" value={newProvider.yearly_revenue} onChange={handleChange} />
-                </div>
-                <button type="submit">Add Provider</button>
-            </form>
-        </div>
+        <form onSubmit={handleSubmit}>
+            <h2>Add new Provider</h2>
+            <div className="input-container">
+                <label htmlFor="name">Name</label>
+                <input
+                    name="name"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+            </div>
+            <div className="input-container">
+                <label htmlFor="country">Country</label>
+                <input
+                    name="country"
+                    type="text"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                />
+            </div>
+            <div className="input-container">
+                <label htmlFor="market_share">Market Share</label>
+                <input
+                    name="market_share"
+                    type="number"
+                    value={marketShare}
+                    onChange={(e) => setMarketShare(e.target.value)}
+                />
+            </div>
+            <div className="input-container">
+                <label htmlFor="renewable_energy_percentage">Renewable Energy %</label>
+                <input
+                    name="renewable_energy_percentage"
+                    type="number"
+                    value={renewableEnergyPercentage}
+                    onChange={(e) => setRenewableEnergyPercentage(e.target.value)}
+                />
+            </div>
+            <div className="input-container">
+                <label htmlFor="yearly_revenue">Yearly Revenue</label>
+                <input
+                    name="yearly_revenue"
+                    type="number"
+                    value={yearlyRevenue}
+                    onChange={(e) => setYearlyRevenue(e.target.value)}
+                />
+            </div>
+            <button type="submit" className="btn-submit">Add Provider</button>
+        </form>
     );
-};
-
-export default AddProvider;
+}

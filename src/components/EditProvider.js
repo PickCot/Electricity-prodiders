@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import '../styles/styles.css';
 
 const EditProvider = ({ updatePost, setReload, reload }) => {
     const { id } = useParams();
@@ -45,7 +46,7 @@ const EditProvider = ({ updatePost, setReload, reload }) => {
     }
 
     return (
-        <div>
+        <div className="form-container">
             <h2>Edit Provider</h2>
             <form onSubmit={handleSubmit}>
                 <label>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../styles/styles.css';
 import { toast } from 'react-toastify';
 
 const AddProvider = ({ addPost }) => {
@@ -22,17 +23,19 @@ const AddProvider = ({ addPost }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            await addPost(newProvider);
-            toast.success('Provider added successfully');
-            navigate('/');
-        } catch (error) {
-            toast.error('Failed to add provider');
+
+        if (newProvider.market_share > 100 || newProvider.renewable_energy_percentage > 100) {
+            toast.error('Market Share and Renewable Energy Percentage cannot exceed 100%');
+            return;
         }
+
+        await addPost(newProvider);
+        navigate('/'); // Navigate back to the main page or another desired route
     };
 
     return (
-        <div>
+        <div className="form-container">
+            <h2>Add New Provider</h2>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Name:</label>

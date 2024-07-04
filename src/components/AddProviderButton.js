@@ -8,7 +8,7 @@ const AddProviderButton = () => {
     const navigate = useNavigate();
 
     return (
-        <Button className="dark-button" onClick={() => navigate('/add')} style={{ cursor: 'pointer' }} variant="outlined" startIcon={<AddCircleOutlineIcon />}>
+        <Button id="dark-button" onClick={() => navigate('/add')} style={{ cursor: 'pointer' }} variant="outlined" startIcon={<AddCircleOutlineIcon />}>
             Add provider
         </Button>
     );

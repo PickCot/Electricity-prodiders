@@ -8,7 +8,7 @@ export default function DataTable({ rows, deletePost, updatePost }) {
     const navigate = useNavigate();
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 70, editable: false },
+        { field: 'id', headerName: 'ID', width: 205, editable: false },
         { field: 'name', headerName: 'Name', width: 130, editable: false },
         { field: 'country', headerName: 'Country', width: 130, editable: false },
         { field: 'market_share', headerName: 'Market Share', type: 'number', width: 120, editable: false },
@@ -28,8 +28,9 @@ export default function DataTable({ rows, deletePost, updatePost }) {
     ];
 
     return (
-        <div style={{ height: 400, width: '100%' }}>
+        <div style={{ height: 400, width: '100%'}}>
             <DataGrid
+                //
                 rows={rows}
                 columns={columns}
                 pageSize={5}
